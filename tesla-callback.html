@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MineControl – Tesla</title>
+</head>
+
+<body style="font-family:Arial,sans-serif;max-width:700px;margin:60px auto;padding:20px">
+
+<h1>MineControl – Tesla</h1>
+<p>Tesla har sendt autorisasjonen tilbake til MineControl.</p>
+
+<div id="result"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const code = params.get("code");
+const state = params.get("state");
+const error = params.get("error");
+
+const result = document.getElementById("result");
+
+if (error) {
+    result.innerHTML =
+        "<h2>Autorisasjon feilet</h2>" +
+        "<p>" + error + "</p>";
+}
+else if (code) {
+    result.innerHTML = `
+        <h2>Autorisasjon mottatt ✅</h2>
+        <p>Gå tilbake til PowerShell-vinduet på MineControl-PC-en.</p>
+        <p>Du trenger ikke sende authorization code til noen.</p>
+        <hr>
+        <small>State: ${state || "mangler"}</small>
+    `;
+}
+else {
+    result.innerHTML =
+        "<p>Ingen Tesla authorization code funnet.</p>";
+}
+</script>
+
+</body>
+</html>
